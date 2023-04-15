@@ -1,8 +1,14 @@
 version: '3.9'
 services:
   selenium:
-    image: selenium/standalone-chrome
-    container_name: selenium-chrome
+    container_name: selenium
+    image: selenium/standalone-chrome:latest
+    shm_size: 2g
     ports:
       - "4444:4444"
-    shm_size: 2g
+    networks:
+      - web
+
+networks:
+  web:
+    name: selenium
