@@ -11,7 +11,7 @@
 ## About
 A simple stock screener for `magic formula` and `aquirer's multiple` stocks. 
 
-This Frontend is built using React - I more of a python than a React-Programmer, so if someone, who uses this framework frequently and professionally, wants to improve on some things, feel free to [contribute](#contributing)
+This Frontend is built using React - I am more of a python than a React-Programmer, so if someone, who uses this framework frequently and professionally, wants to improve on some things, feel free to [contribute](#contributing)
 
 There is (or will be once I am done) a backend as well, which consists of a scraper, db and an api. I will create separate repositories for those though and the scraper might stay private to avoid a horde of people spamming the servers and getting the interfaces shut down. 
 
