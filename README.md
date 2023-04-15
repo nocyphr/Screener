@@ -62,11 +62,13 @@ This executes the gherkin step definitions and unit-tests
 
 ## Work in Progress
 ### Preparation
-- [ ] write top level feature
-- [ ] write step definitions
-- [ ] setup basic docker(compose) structure
-- [ ] setup cucumber-js
+- [x] write top level feature
+- [x] write step definitions
+- [x] setup basic docker(compose) structure
+- [x] setup cucumber-js
+- [x] setup selenium + webdriver
+- [x] write a README
 
 ### Genesis
-- [ ] Fill in the blank step definitions
-- [ ] 
+- [ ] Fill in the blank step definitions with actual tests
+- [ ] tbc
