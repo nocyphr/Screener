@@ -1,0 +1,15 @@
+version: '3.9'
+
+services:
+  react_app:
+    build:
+      context: ./misc
+      dockerfile: docker.react.dockerfile
+    command: npm start
+    container_name: react_app
+    restart: unless-stopped
+    ports:
+      - 3000:3000
+    volumes:
+      - ./src:/app/src
+      - ./public:/app/public
