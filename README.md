@@ -79,4 +79,5 @@ This executes the gherkin step definitions and unit-tests
   - [ ] sorting is possible and works
   - [ ] filtering is possible and works
   - [ ] getting the current table in csv format is possible (link? Download?)
+- [ ] styling? Frameworks? (bootstrap vs. tailwind)
 
