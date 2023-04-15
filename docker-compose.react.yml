@@ -15,3 +15,8 @@ services:
       - ./public:/app/public
       - ./features:/app/features
       - ./misc/node_modules:/app/node_modules
+    networks:
+      - selenium
+networks:
+  selenium: 
+      external: true
