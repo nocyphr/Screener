@@ -5,7 +5,7 @@ As a user, I want to be able to view, filter, sort, and download stock data in a
 Background:
 Given I am on the Stock Management React App
 
-Scenario: Display the title of the Stock Management React App
+Scenario: Display the title of the Stock Screener
 Then I should see the title "Nocyphr Stock Screener"
 
 Scenario: Filter stock data
@@ -15,7 +15,7 @@ Then I should see the table of stocks update with the filtered results
 
 Scenario Outline: Sort stock data
 Given I see the table of stocks
-When I click on a column with <current_sorting>
+When I click on a column with <current_sorting> order
 Then I should see the table of stocks sorted by the selected column in <new_sorting> order
 
 Examples: 
