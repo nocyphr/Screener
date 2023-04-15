@@ -1,7 +1,7 @@
 function App() {
   return (
     <div>
-      <h2>Let's get started now!</h2>
+      <h1>Nocyphr Stock Screener</h1>
     </div>
   );
 }
