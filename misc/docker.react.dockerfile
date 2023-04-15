@@ -1,14 +1,15 @@
 # Use the official Node.js image as a base
 FROM node:19-alpine as build-stage
 
-# Set the working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json
-COPY package.json ./
+RUN apk update
+RUN apk upgrade
+RUN apk add bash
 
-# Install dependencies
-RUN npm install
+COPY ./entrypoint.sh /entrypoint.sh
+
+ENTRYPOINT [ "bash","/entrypoint.sh" ]
 
 
 
