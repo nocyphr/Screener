@@ -1,14 +1,31 @@
-const { Given, When, Then } = require('@cucumber/cucumber');
+const { Given, When, Then, AfterAll } = require('@cucumber/cucumber');
+const { Builder, By, Key, until } = require('selenium-webdriver');
+const assert = require('assert');
 
-Given('I am on the Stock Management React App', function () {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+let driver;
+
+Given('I am on the Stock Management React App', async function () {
+  driver = await new Builder()
+    .forBrowser('chrome')
+    .usingServer('http://selenium:4444/wd/hub')
+    .build();
+
+  await driver.get(`http://${process.env.HOSTMACHINEIP}:3000`);
 });
 
-Then('I should see the title {string}', function (string) {
-  // Write code here that turns the phrase above into concrete actions
-  return 'pending';
+Then('I should see the title {string}', async function (string) {
+  const title = await driver.findElement(By.css('h1')).getText();
+  assert.strictEqual(title, string);
 });
+
+AfterAll(async function () {
+  if (driver) {
+    await driver.quit();
+  }
+});
+
+
+
 
 Given('I see the filter section', function () {
   // Write code here that turns the phrase above into concrete actions
