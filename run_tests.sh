@@ -1,0 +1,1 @@
+docker exec -it react_app npm run feature
