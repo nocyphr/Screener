@@ -1,0 +1,108 @@
+[
+    {
+      "Symbol": "AAPL",
+      "Price": 150.25,
+      "MarketCap": 2500000000,
+      "MagicformulaIndex": 5,
+      "Aquirer's Multiple": 10
+    },
+    {
+      "Symbol": "GOOGL",
+      "Price": 2150.35,
+      "MarketCap": 1500000000,
+      "MagicformulaIndex": 8,
+      "Aquirer's Multiple": 7
+    },
+    {
+      "Symbol": "AMZN",
+      "Price": 3200.20,
+      "MarketCap": 1000000000,
+      "MagicformulaIndex": 12,
+      "Aquirer's Multiple": 5
+    },
+    {
+      "Symbol": "MSFT",
+      "Price": 235.15,
+      "MarketCap": 500000000,
+      "MagicformulaIndex": 10,
+      "Aquirer's Multiple": 15
+    },
+    {
+      "Symbol": "TSLA",
+      "Price": 850.50,
+      "MarketCap": 450000000,
+      "MagicformulaIndex": 6,
+      "Aquirer's Multiple": 8
+    },
+    {
+      "Symbol": "FB",
+      "Price": 290.10,
+      "MarketCap": 600000000,
+      "MagicformulaIndex": 20,
+      "Aquirer's Multiple": 12
+    },
+    {
+      "Symbol": "NVDA",
+      "Price": 660.30,
+      "MarketCap": 300000000,
+      "MagicformulaIndex": 15,
+      "Aquirer's Multiple": 9
+    },
+    {
+      "Symbol": "NFLX",
+      "Price": 560.40,
+      "MarketCap": 200000000,
+      "MagicformulaIndex": 18,
+      "Aquirer's Multiple": 14
+    },
+    {
+      "Symbol": "INTC",
+      "Price": 49.25,
+      "MarketCap": 100000000,
+      "MagicformulaIndex": 30,
+      "Aquirer's Multiple": 25
+    },
+    {
+      "Symbol": "AMD",
+      "Price": 95.80,
+      "MarketCap": 50000000,
+      "MagicformulaIndex": 22,
+      "Aquirer's Multiple": 20
+    },
+    {
+      "Symbol": "CSCO",
+      "Price": 42.35,
+      "MarketCap": 25000000,
+      "MagicformulaIndex": 25,
+      "Aquirer's Multiple": 18
+    },
+    {
+      "Symbol": "ORCL",
+      "Price": 68.20,
+      "MarketCap": 20000000,
+      "MagicformulaIndex": 28,
+      "Aquirer's Multiple": 22
+    },
+    {
+      "Symbol": "IBM",
+      "Price": 130.75,
+      "MarketCap": 15000000,
+      "MagicformulaIndex": 35,
+      "Aquirer's Multiple": 30
+    },
+    {
+      "Symbol": "ADBE",
+      "Price": 530.15,
+      "MarketCap": 10000000,
+      "MagicformulaIndex": 32,
+      "Aquirer's Multiple": 28
+    },
+    {
+      "Symbol": "CRM",
+      "Price": 230.45,
+      "MarketCap": 8000000,
+      "MagicformulaIndex": 40,
+      "Aquirer's Multiple": 23
+    }
+]
+  
