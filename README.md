@@ -70,14 +70,14 @@ This executes the gherkin step definitions and unit-tests
 - [x] write a README
 
 ### Genesis
-- [ ] extend feature file for existence checks of elements?
+- [x] extend feature file for existence checks of elements?
 - [ ] Fill in the blank step definitions with actual tests
   - [x] title (h1) should be Nocyphr Stock Screener
-  - [ ] there is a table section
-  - [ ] there is data in the table
-  - [ ] there is a filter section
-  - [ ] sorting is possible and works
-  - [ ] filtering is possible and works
+  - [x] there is a table section
+  - [x] there is data in the table
+  - [x] there is a filter section
+  - [x] sorting is possible and works
+  - [x] filtering is possible and works
   - [ ] getting the current table in csv format is possible (link? Download?)
-- [ ] styling? Frameworks? (bootstrap vs. tailwind)
+- [x] styling? Frameworks? (bootstrap vs. tailwind)
 
