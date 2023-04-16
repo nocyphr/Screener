@@ -40,7 +40,8 @@ const Filter = ({ data, columns, onApplyFilters, initialFilter }) => {
     appliedFilters,
     setAppliedFilters,
     data,
-    onApplyFilters
+    onApplyFilters,
+    columns
   );
 
   const clearFilters = handleClearFilters(setAppliedFilters, onApplyFilters, data);

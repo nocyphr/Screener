@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const TableView = ({ data, columns }) => {
+const TableView = ({ data, columns, onSort }) => {
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'none' });
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
@@ -11,7 +11,9 @@ const TableView = ({ data, columns }) => {
       direction = 'descending';
     }
     setSortConfig({ key: column, direction });
+    onSort(sortedData);
   };
+  
 
   const sortedData = React.useMemo(() => {
     const sorted = [...data];
