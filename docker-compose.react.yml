@@ -16,6 +16,7 @@ services:
       - ./public:/app/public
       - ./features:/app/features
       - ./misc/node_modules:/app/node_modules
+      - ./misc/tailwind.config.js:/app/tailwind.config.js
     networks:
       - selenium
 networks:
