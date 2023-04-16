@@ -1,30 +1,7 @@
-const { Given, When, Then, AfterAll } = require('@cucumber/cucumber');
-const { Builder, By, Key, until } = require('selenium-webdriver');
+const { Given, When, Then } = require('@cucumber/cucumber');
+const { By, Key, until } = require('selenium-webdriver');
 const assert = require('assert');
-
-let driver;
-
-Given('I am on the Stock Management React App', async function () {
-  driver = await new Builder()
-    .forBrowser('chrome')
-    .usingServer('http://selenium:4444/wd/hub')
-    .build();
-
-  await driver.get(`http://${process.env.HOSTMACHINEIP}:3000`);
-});
-
-Then('I should see the title {string}', async function (string) {
-  const title = await driver.findElement(By.css('h1')).getText();
-  assert.strictEqual(title, string);
-});
-
-AfterAll(async function () {
-  if (driver) {
-    await driver.quit();
-  }
-});
-
-
+const { driver } = require('./common'); // Update the path to the hooks.js file if needed
 
 
 Given('I see the filter section', function () {

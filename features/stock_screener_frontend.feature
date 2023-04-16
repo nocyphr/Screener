@@ -2,11 +2,7 @@ Feature: Stock Screener Website
 
 As a user, I want to be able to view, filter, sort, and download stock data in a user-friendly interface.
 
-Background:
-Given I am on the Stock Management React App
 
-Scenario: Display the title of the Stock Screener
-Then I should see the title "Nocyphr Stock Screener"
 
 Scenario: Filter stock data
 Given I see the filter section
