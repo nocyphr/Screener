@@ -79,8 +79,9 @@ This executes the gherkin step definitions and unit-tests
   - [x] there is a filter section
   - [x] sorting is possible and works
   - [x] filtering is possible and works
-  - [ ] getting the current table in csv format is possible (link? Download?)
+  - [x] getting the current table in csv format is possible (link? Download?)
 - [x] styling? Frameworks? (bootstrap vs. tailwind)
 
 ### Issues
 - [ ] Go to page 2, set symbol filter to "A" -> you are on an empty page 2 because there are only enough items for one page
+- [ ] Sorting is lost in downloaded csv, only filters stay applied
