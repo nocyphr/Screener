@@ -27,6 +27,7 @@ Then('I should see the {string} column', async function (column) {
     assert.ok(columnHeader);
 });
 
+
 Then('I should see the filter section component', async function () {
     const driver = getDriver();
     const filterSection = await driver.findElement(By.css('#filter-section')); // Replace with the correct CSS selector for the filter section
