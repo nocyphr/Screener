@@ -11,12 +11,15 @@ Then I should see the title "Nocyphr Stock Screener"
   Scenario: Verify that the download button exists
     Then I should see the download button component
 
-  Scenario Outline: Verify that the columns exist
-    Then I should see the <column> column:
-      | column    |
-      | Symbol    |
-      | Price     |
-      | Marketcap |
+    Scenario Outline: Verify that the columns exist
+    Then I should see the "<column>" column
+
+    Examples:
+        | column    |
+        | Symbol    |
+        | Price     |
+        | MarketCap |
+
 
   Scenario: Verify that the filter section exists
     Then I should see the filter section component
