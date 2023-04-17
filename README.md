@@ -83,6 +83,7 @@ This executes the gherkin step definitions and unit-tests
   - [x] getting the current table in csv format is possible (link? Download?)
 - [x] styling? Frameworks? (bootstrap vs. tailwind)
 - [ ] refine Scenario: Filter stock data Outline with examples column | filter -> test text column, numerical column, operators
+- [ ] "remember" (cookie) applied filters and sorting after page reload
 
 ### Issues
 - [ ] Go to page 2, set symbol filter to "A" -> you are on an empty page 2 because there are only enough items for one page
