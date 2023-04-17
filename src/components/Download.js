@@ -37,7 +37,7 @@ const Download = ({ data, filteredSortedData = [], columns = [], filename, child
   };
 
   return (
-    <button className="bg-green-600 text-gray-200 p-2 rounded" onClick={handleClick}>
+    <button className="bg-green-600 text-gray-200 p-2 rounded" id="download-button" onClick={handleClick}>
       {children || 'Download CSV'}
     </button>
   );
