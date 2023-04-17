@@ -4,50 +4,85 @@ const assert = require('assert');
 const { getDriver } = require('./common');
 
 Given('I see the filter section', async function () {
-  const driver = getDriver();
-  const filterSection = await driver.findElement(By.css('#filter-section'));
-  assert.ok(filterSection);
-  // clean up: no assert here please, use context to pass on the FilterSection and continue in WHEN block
+  this.driver = getDriver();
+  this.filterSection = await this.driver.findElement(By.css('#filter-section input'));
 });
 
 // this needs to be refined in the Feature file -> Outline with examples column | filter -> test text column, numerical column, operators
 When('I input a filter criteria in the filter section', async function () {
-  const driver = getDriver();
-  const filterInput = await driver.findElement(By.css('#filter-section input'));
-  await filterInput.sendKeys('A', Key.RETURN);
+  this.filterSection = await this.driver.findElement(By.css('#filter-section input'));
+  await this.filterSection.sendKeys('A', Key.RETURN);
 });
 
 Then('I should see the table of stocks update with the filtered results', async function () {
-  // e.g. Test that there are no results not containing "A"
+  const filterCriteria = 'A';
+  const rows = await this.driver.findElements(By.css('table tbody tr'));
+  
+  for (let i = 0; i < rows.length; i++) {
+    const cells = await rows[i].findElements(By.css('td'));
+    
+    let foundMatch = false;
+    for (let j = 0; j < cells.length; j++) {
+      const cellText = await cells[j].getText();
+      
+      if (cellText.includes(filterCriteria)) {
+        foundMatch = true;
+        break;
+      }
+    }
+    
+    assert.ok(foundMatch, `Row ${i + 1} does not contain the filter criteria "${filterCriteria}"`);
+  }
 });
+
 
 Given('I see the table of stocks', async function () {
-  const driver = getDriver();
-  const table = await driver.findElement(By.css('table'));
-  assert.ok(table);
+  this.driver = getDriver();
+  const table = await this.driver.findElement(By.css('table'));
 });
 
-When(/^I click on a column with (.*?) order$/, async function (current_sorting) {
-  const driver = getDriver();
-  const columnHeader = await driver.findElement(By.xpath(`//table//thead//tr//th[contains(text(), "${current_sorting}")]`));
-  await columnHeader.click();
+When(/^I click on (.*) with (.*?) order$/, async function (columnName, sortOrder) {
+  this.columnName = columnName
+  this.headerElement = await this.driver.findElement(By.xpath(`//table//thead//tr//th[contains(text(), "${columnName}")]`));
+  await this.headerElement.click();
 });
 
-Then(/^I should see the table of stocks sorted by the selected column in (.*?) order$/, async function (new_sorting) {
-  // Implement the verification of the sorted table
+const isSorted = (a, b, order) => {
+  if (order === 'ascending') {
+    return a <= b;
+  }
+  if (order === 'descending') {
+    return a >= b;
+  }
+};
+
+Then(/^I should see the table of stocks sorted by the selected column in (.*?) order$/, async function (expectedOrder) {
+  const columnIndex = await this.headerElement.getAttribute('cellIndex');
+  const rows = await this.driver.findElements(By.css('table tbody tr'));
+  let previousValue = null;
+
+  for (let i = 0; i < rows.length; i++) {
+    const cells = await rows[i].findElements(By.css('td'));
+    const cellText = await cells[columnIndex].getText();
+    const currentValue = cellText;
+
+    if (previousValue !== null) {
+      assert.ok(isSorted(previousValue, currentValue, expectedOrder), `Row ${i + 1} is not sorted in ${expectedOrder} order`);
+    }
+
+    previousValue = currentValue;
+  }
 });
+
+
 
 Given('I see the {string} button', async function (string) {
   const driver = getDriver();
-  const downloadButton = await driver.findElement(By.css('#download-button'));
-  // clean up: no assert in given, use context to pass on to WHEN block
-  assert.ok(downloadButton);
+  this.downloadButton = await driver.findElement(By.css('#download-button'));
 });
 
 When('I click the {string} button', async function (string) {
-  const driver = getDriver();
-  const downloadButton = await driver.findElement(By.css('#download-button'));
-  await downloadButton.click();
+  await this.downloadButton.click();
 });
 
 Then('the dataset is downloaded in csv-format', function () {
