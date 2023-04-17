@@ -1,5 +1,5 @@
 const { Given, When, Then } = require('@cucumber/cucumber');
-const { By, Key, until } = require('selenium-webdriver');
+const { By, Key } = require('selenium-webdriver');
 const assert = require('assert');
 const { getDriver } = require('./common');
 
