@@ -8,7 +8,6 @@ Given('I see the filter section', async function () {
   this.filterSection = await this.driver.findElement(By.css('#filter-section input'));
 });
 
-// this needs to be refined in the Feature file -> Outline with examples column | filter -> test text column, numerical column, operators
 When('I input a filter criteria in the filter section', async function () {
   this.filterSection = await this.driver.findElement(By.css('#filter-section input'));
   await this.filterSection.sendKeys('A', Key.RETURN);
@@ -74,8 +73,6 @@ Then(/^I should see the table of stocks sorted by the selected column in (.*?) o
   }
 });
 
-
-
 Given('I see the {string} button', async function (string) {
   const driver = getDriver();
   this.downloadButton = await driver.findElement(By.css('#download-button'));
@@ -86,5 +83,5 @@ When('I click the {string} button', async function (string) {
 });
 
 Then('the dataset is downloaded in csv-format', function () {
-  // Manual testing?
+  // Manual testing required
 });

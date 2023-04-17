@@ -73,7 +73,7 @@ This executes the gherkin step definitions and unit-tests
 
 ### Genesis
 - [x] extend feature file for existence checks of elements?
-- [ ] Fill in the blank step definitions with actual tests
+- [x] Fill in the blank step definitions with actual tests
   - [x] title (h1) should be Nocyphr Stock Screener
   - [x] there is a table section
   - [x] there is data in the table
@@ -82,6 +82,7 @@ This executes the gherkin step definitions and unit-tests
   - [x] filtering is possible and works
   - [x] getting the current table in csv format is possible (link? Download?)
 - [x] styling? Frameworks? (bootstrap vs. tailwind)
+- [ ] refine Scenario: Filter stock data Outline with examples column | filter -> test text column, numerical column, operators
 
 ### Issues
 - [ ] Go to page 2, set symbol filter to "A" -> you are on an empty page 2 because there are only enough items for one page
