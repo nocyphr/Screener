@@ -48,7 +48,7 @@ const Filter = ({ data, columns, onApplyFilters, initialFilter }) => {
 
   return (
     <div className="my-4">
-      <div className="flex items-center">
+      <div className="flex items-center" id="filter-section">
         <select
           className="bg-gray-700 text-gray-400 p-2 rounded mr-2"
           value={selectedFilter}
