@@ -13,7 +13,7 @@ const App = () => {
   const [columns, setColumns] = useState([]);
 
   useEffect(() => {
-    fetch('/data.json')
+    fetch(process.env.REACT_APP_API_URL)
       .then((response) => response.json())
       .then((data) => {
         setData(data);
@@ -24,7 +24,7 @@ const App = () => {
 
   const handleApplyFilters = (filteredData) => {
     setFilteredData(filteredData);
-    setSortedData(filteredData); // Add this line
+    setSortedData(filteredData);
   };
   
 
