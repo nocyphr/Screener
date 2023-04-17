@@ -22,4 +22,4 @@ Examples:
 Scenario: Download stock data as a CSV file
 Given I see the "Download as CSV" button
 When I click the "Download as CSV" button
-Then the dataset is downloaded as in csv-format
+Then the dataset is downloaded in csv-format
