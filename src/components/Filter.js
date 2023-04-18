@@ -1,50 +1,18 @@
-import React, { useState } from 'react';
-import {
-  applyFilters,
-  handleApplyFilter,
-  handleRemoveFilter,
-  handleClearFilters,
-} from '../helpers/FilterLogic';
+import React from 'react';
+import useFilter from '../hooks/useFilter';
 
 const Filter = ({ data, columns, onApplyFilters, initialFilter }) => {
-  const [selectedFilter, setSelectedFilter] = useState(initialFilter || columns[0]);
-  const [filterValue, setFilterValue] = useState('');
-  const [appliedFilters, setAppliedFilters] = useState([]);
-
-  const handleFilterChange = (e) => {
-    setSelectedFilter(e.target.value);
-  };
-
-  const handleFilterValueChange = (e) => {
-    setFilterValue(e.target.value);
-  };
-
-  const handleKeyPress = (e) => {
-    if (e.key === 'Enter') {
-      applyFilter();
-    }
-  };
-
-  const applyFilter = handleApplyFilter(
+  const {
     selectedFilter,
     filterValue,
     appliedFilters,
-    setAppliedFilters,
-    setFilterValue,
-    data,
-    onApplyFilters,
-    columns
-  );
-
-  const removeFilter = handleRemoveFilter(
-    appliedFilters,
-    setAppliedFilters,
-    data,
-    onApplyFilters,
-    columns
-  );
-
-  const clearFilters = handleClearFilters(setAppliedFilters, onApplyFilters, data);
+    handleFilterChange,
+    handleFilterValueChange,
+    handleKeyPress,
+    applyFilter,
+    removeFilter,
+    clearFilters,
+  } = useFilter(data, columns, onApplyFilters, initialFilter);
 
   return (
     <div className="my-4">
@@ -102,5 +70,6 @@ const Filter = ({ data, columns, onApplyFilters, initialFilter }) => {
       </div>
     </div>
   );
-}
+};
+
 export default Filter;
