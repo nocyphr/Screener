@@ -1,51 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
+import useTableView from '../hooks/useTableView';
 
-const TableView = ({ data, columns, onSort }) => {
-  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'none' });
-  const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(10);
-
-  const handleHeaderClick = (column) => {
-    let direction = 'ascending';
-    if (sortConfig.key === column && sortConfig.direction === 'ascending') {
-      direction = 'descending';
-    }
-    setSortConfig({ key: column, direction });
-    onSort(sortedData);
-  };
-  
-
-  const sortedData = React.useMemo(() => {
-    const sorted = [...data];
-    if (sortConfig.key && sortConfig.direction !== 'none') {
-      sorted.sort((a, b) => {
-        if (a[sortConfig.key] < b[sortConfig.key]) {
-          return sortConfig.direction === 'ascending' ? -1 : 1;
-        }
-        if (a[sortConfig.key] > b[sortConfig.key]) {
-          return sortConfig.direction === 'ascending' ? 1 : -1;
-        }
-        return 0;
-      });
-    }
-    return sorted;
-  }, [data, sortConfig]);
-
-  const handlePageChange = (newPage) => {
-    setCurrentPage(newPage);
-  };
-
-  const handleItemsPerPageChange = (e) => {
-    setItemsPerPage(parseInt(e.target.value, 10));
-    setCurrentPage(1);
-  };
-
-  const paginatedData = sortedData.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
-  );
-
-  const totalPages = Math.ceil(sortedData.length / itemsPerPage);
+const TableView = ({ data, columns }) => {
+  const {
+    sortConfig,
+    currentPage,
+    itemsPerPage,
+    totalPages,
+    paginatedData,
+    handleHeaderClick,
+    handlePageChange,
+    handleItemsPerPageChange,
+  } = useTableView(data, columns);
 
   return (
     <>
@@ -87,7 +53,7 @@ const TableView = ({ data, columns, onSort }) => {
           value={itemsPerPage}
           onChange={handleItemsPerPageChange}
         >
-                    <option value={10}>10</option>
+          <option value={10}>10</option>
           <option value={20}>20</option>
           <option value={50}>50</option>
         </select>
