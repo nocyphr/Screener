@@ -1,33 +1,10 @@
 import { useState, useMemo, useEffect } from 'react';
+import useSort from './useSort';
 
 const useTableView = (data, columns) => {
-  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'none' });
+  const { sortedData, sortConfig, handleHeaderClick } = useSort(data);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(10);
-
-  const handleHeaderClick = (column) => {
-    let direction = 'ascending';
-    if (sortConfig.key === column && sortConfig.direction === 'ascending') {
-      direction = 'descending';
-    }
-    setSortConfig({ key: column, direction });
-  };
-
-  const sortedData = useMemo(() => {
-    const sorted = [...data];
-    if (sortConfig.key && sortConfig.direction !== 'none') {
-      sorted.sort((a, b) => {
-        if (a[sortConfig.key] < b[sortConfig.key]) {
-          return sortConfig.direction === 'ascending' ? -1 : 1;
-        }
-        if (a[sortConfig.key] > b[sortConfig.key]) {
-          return sortConfig.direction === 'ascending' ? 1 : -1;
-        }
-        return 0;
-      });
-    }
-    return sorted;
-  }, [data, sortConfig]);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
