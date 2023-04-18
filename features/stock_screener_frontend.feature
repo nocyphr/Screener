@@ -3,10 +3,17 @@ Feature: Stock Screener Website
 As a user, I want to be able to view, filter, sort, and download stock data in a user-friendly interface.
 
 
-Scenario: Filter stock data
+Scenario Outline: Filter stock data
 Given I see the filter section
-When I input a filter criteria in the filter section
-Then I should see the table of stocks update with the filtered results
+When I apply a <Filter> criteria to the <Column>
+Then <Column> should no longer contain entries where <Filter> is false
+
+Examples: 
+| Column    | Filter     |
+| Symbol    | A          | 
+| Price     | >160       |
+| Symbol    | !E         |
+| MarketCap | <450000000 |
 
 Scenario Outline: Sort stock data
 Given I see the table of stocks

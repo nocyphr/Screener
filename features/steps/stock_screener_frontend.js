@@ -8,31 +8,74 @@ Given('I see the filter section', async function () {
   this.filterSection = await this.driver.findElement(By.css('#filter-section input'));
 });
 
-When('I input a filter criteria in the filter section', async function () {
+When(/^I apply a (.*) criteria to the (.*)$/, async function (filter, column) {
+  this.column = column;
+  this.filter = filter;
   this.filterSection = await this.driver.findElement(By.css('#filter-section input'));
-  await this.filterSection.sendKeys('A', Key.RETURN);
+  await this.filterSection.clear();
+  await this.filterSection.sendKeys(filter, Key.RETURN);
 });
 
-Then('I should see the table of stocks update with the filtered results', async function () {
-  const filterCriteria = 'A';
+async function getColumnIndex(driver, columnName) {
+  const headers = await driver.findElements(By.css('table thead tr th'));
+  for (let i = 0; i < headers.length; i++) {
+    const headerText = await headers[i].getText();
+    if (headerText === columnName) {
+      return i;
+    }
+  }
+
+  // Return -1 if the column is not found
+  return -1;
+}
+
+
+const evaluateFilterExpression = (value, filter) => {
+  const trimmedFilter = filter.trim();
+  const filterType = trimmedFilter[0];
+  const filterValue = trimmedFilter.slice(1).trim();
+
+  if (filterType === '<') {
+    const cellValueAsNumber = parseFloat(value.replace(/\s+/g, ''));
+    const filterValueAsNumber = parseFloat(filterValue);
+    return cellValueAsNumber < filterValueAsNumber;
+  }
+
+  if (filterType === '>') {
+    const cellValueAsNumber = parseFloat(value.replace(/\s+/g, ''));
+    const filterValueAsNumber = parseFloat(filterValue);
+    return cellValueAsNumber > filterValueAsNumber;
+  }
+
+  if (filterType === '!') {
+    // Check if value does not include the filter value
+    return !value.toLowerCase().includes(filterValue.toLowerCase());
+  }
+
+  // Handle the case when there is no operator in the filter expression
+  return value.toLowerCase().includes(trimmedFilter.toLowerCase());
+};
+
+
+Then(/^(\w+) should no longer contain entries where (.*) is false$/, async function (column, filter) {
+  this.column = column;
   const rows = await this.driver.findElements(By.css('table tbody tr'));
-  
+  const columnIndex = await getColumnIndex(this.driver, this.column);
+
+  if (columnIndex === -1) {
+    throw new Error(`Column "${this.column}" not found`);
+  }
+
   for (let i = 0; i < rows.length; i++) {
     const cells = await rows[i].findElements(By.css('td'));
-    
-    let foundMatch = false;
-    for (let j = 0; j < cells.length; j++) {
-      const cellText = await cells[j].getText();
-      
-      if (cellText.includes(filterCriteria)) {
-        foundMatch = true;
-        break;
-      }
-    }
-    
-    assert.ok(foundMatch, `Row ${i + 1} does not contain the filter criteria "${filterCriteria}"`);
+    const cellText = await cells[columnIndex].getText();
+
+    const filterResult = evaluateFilterExpression(cellText, filter);
+
+    assert.ok(filterResult, `Row ${i + 1} does not satisfy the filter criteria "${filter}" for column "${this.column}"`);
   }
 });
+
 
 
 Given('I see the table of stocks', async function () {
