@@ -6,6 +6,7 @@
 - [Work in Progress](#work-in-progress)
   - [Preparation](#preparation)
   - [Genesis](#genesis)
+  - [Refactoring](#refactoring)
   - [Issues](#issues)
 
 
@@ -85,6 +86,10 @@ This executes the gherkin step definitions and unit-tests
 - [x] refine Scenario: Filter stock data Outline with examples column | filter -> test text column, numerical column, operators
 - [ ] "remember" (cookie) applied filters and sorting after page reload
 - [ ] Add test for sequential filters
+
+### Refactoring
+- [x] use hooks directory and move code there to simplify components code
+- [x] eliminate single helpers file (FilterLogic.js)
 
 ### Issues
 - [ ] Go to page 2, set symbol filter to "A" -> you are on an empty page 2 because there are only enough items for one page
