@@ -1,29 +1,27 @@
 export const applyFilters = (data, appliedFilters, columns) => {
-    return data.filter((item) => {
-      return appliedFilters.every((filter) => {
-        const operator = filter.value[0];
-        const filterValue = filter.value.slice(1).trim();
-  
-        switch (operator) {
-          case '>':
-            return parseFloat(item[filter.type]) > parseFloat(filterValue);
-          case '<':
-            return parseFloat(item[filter.type]) < parseFloat(filterValue);
-          case '!':
-            const value = isNaN(parseFloat(filterValue))
-              ? filterValue
-              : parseFloat(filterValue);
-            return item[filter.type].toString().toLowerCase() !== value.toString().toLowerCase();
-          default:
-            if (columns.includes(filter.type)) {
-              return item[filter.type].toString().toLowerCase().includes(filter.value.toLowerCase());
-            } else {
-              return true;
-            }
-        }
-      });
+  return appliedFilters.reduce((filteredData, filter) => {
+    return filteredData.filter((item) => {
+      const operator = filter.value[0];
+      const filterValue = filter.value.slice(1).trim();
+
+      switch (operator) {
+        case '>':
+          return parseFloat(item[filter.type]) > parseFloat(filterValue);
+        case '<':
+          return parseFloat(item[filter.type]) < parseFloat(filterValue);
+        case '!':
+          return !item[filter.type].toString().toLowerCase().includes(filterValue.toLowerCase());
+        default:
+          if (columns.includes(filter.type)) {
+            return item[filter.type].toString().toLowerCase().includes(filter.value.toLowerCase());
+          } else {
+            return true;
+          }
+      }
     });
-  };
+  }, data);
+};
+
   
   export const handleApplyFilter = (
     selectedFilter,
