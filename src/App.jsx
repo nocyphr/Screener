@@ -10,7 +10,6 @@ const App = () => {
   const headerTitle = 'Nocyphr Stock Screener';
   const { data, columns, loading } = useFetchData(process.env.REACT_APP_API_URL);
   const [filteredData, setFilteredData] = useState([]);
-  const [sortedData, setSortedData] = useState([]);
 
   useEffect(() => {
     setFilteredData(data);
@@ -18,9 +17,8 @@ const App = () => {
 
   const handleApplyFilters = (filteredData) => {
     setFilteredData(filteredData);
-    setSortedData(filteredData);
   };
-  
+
   return (
     <Container>
       <Header title={headerTitle} />
@@ -29,7 +27,7 @@ const App = () => {
           <Filter data={data} columns={columns} onApplyFilters={handleApplyFilters} />
           <Download
             data={data}
-            filteredSortedData={sortedData}
+            filteredSortedData={filteredData}
             columns={columns}
           />
         </div>
@@ -38,7 +36,7 @@ const App = () => {
         <TableView
           data={filteredData}
           columns={columns}
-          onSort={setSortedData}
+          onSortedDataChange={setFilteredData}
         />
       )}
     </Container>

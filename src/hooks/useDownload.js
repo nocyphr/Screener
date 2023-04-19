@@ -25,13 +25,22 @@ const getDateTimeStamp = () => {
   return datetime;
 };
 
-const useDownload = (data, filteredSortedData = [], columns = [], filename, children) => {
+const useDownload = (data, filteredSortedData = [], columns = [], filename, children, sortColumn, sortOrder) => {
   const handleClick = useCallback(() => {
     const dateTimeStamp = getDateTimeStamp();
     const customFilename = filename ? `${filename}_${dateTimeStamp}.csv` : `data_${dateTimeStamp}.csv`;
-    const csv = convertToCSV(filteredSortedData, columns);
+
+    const sortedData = [...filteredSortedData].sort((a, b) => {
+      if (sortOrder === 'asc') {
+        return a[sortColumn] > b[sortColumn] ? 1 : -1;
+      } else {
+        return a[sortColumn] < b[sortColumn] ? 1 : -1;
+      }
+    });
+    const csv = convertToCSV(sortedData, columns);
+
     downloadCSV(csv, customFilename);
-  }, [data, filteredSortedData, columns, filename, children]);
+  }, [data, filteredSortedData, columns, filename, children, sortColumn, sortOrder]);
 
   return { handleClick };
 };

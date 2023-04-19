@@ -1,7 +1,7 @@
 import React from 'react';
 import useTableView from '../hooks/useTableView';
 
-const TableView = ({ data, columns }) => {
+const TableView = ({ data, columns, onSortedDataChange }) => {
   const {
     sortConfig,
     currentPage,
@@ -12,6 +12,12 @@ const TableView = ({ data, columns }) => {
     handlePageChange,
     handleItemsPerPageChange,
   } = useTableView(data, columns);
+
+  React.useEffect(() => {
+    if (onSortedDataChange) {
+      onSortedDataChange(paginatedData);
+    }
+  }, [paginatedData, onSortedDataChange]);
 
   return (
     <>
