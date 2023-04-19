@@ -17,9 +17,9 @@ services:
       - ./src:/app/src
       - ./public:/app/public
       - ./features:/app/features
-      - ./misc/package.json:/app/package.json
-      - ./misc/tailwind.config.js:/app/tailwind.config.js
-      - ./misc/node_modules:/app/node_modules
+      - ./config/package.json:/app/package.json
+      - ./config/tailwind.config.js:/app/tailwind.config.js
+      - ./config/node_modules:/app/node_modules
 
     networks:
       - selenium
