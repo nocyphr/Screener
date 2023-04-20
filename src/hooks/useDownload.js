@@ -1,7 +1,7 @@
 import { useCallback } from 'react';
 import { convertToCSV, downloadCSV, getDateTimeStamp } from '../utils';
 
-const useDownload = (data, filteredSortedData = [], columns = [], filename, sortColumn, sortOrder) => {
+const useDownload = (filteredSortedData = [], columns = [], filename, sortColumn, sortOrder) => {
   const handleClick = useCallback(() => {
     const dateTimeStamp = getDateTimeStamp();
     const customFilename = filename ? `${filename}_${dateTimeStamp}.csv` : `data_${dateTimeStamp}.csv`;
