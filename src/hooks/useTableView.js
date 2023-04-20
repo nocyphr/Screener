@@ -1,7 +1,7 @@
 import useSort from './useSort';
 import usePagination from './usePagination';
 
-const useTableView = (data, columns) => {
+const useTableView = (data) => {
   const { sortedData, sortConfig, handleHeaderClick } = useSort(data);
   const {
     currentPage,
