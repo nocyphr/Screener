@@ -1,4 +1,3 @@
-import { useState, useMemo, useEffect } from 'react';
 import useSort from './useSort';
 import usePagination from './usePagination';
 
