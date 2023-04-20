@@ -15,7 +15,7 @@ const useDownload = (data, filteredSortedData = [], columns = [], filename, sort
     });
     const csv = convertToCSV(sortedData, columns);
 
-    downloadCSV(csv, customFilename);
+    downloadCSV(csv, customFilename, document);
   }, [filteredSortedData, columns, filename, sortColumn, sortOrder]);
 
   return { handleClick };
