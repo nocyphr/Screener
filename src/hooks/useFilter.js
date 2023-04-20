@@ -14,7 +14,7 @@ const useFilter = (data, columns, onApplyFilters, initialFilter) => {
       setAppliedFilters(newAppliedFilters);
       setFilterValue('');
 
-      const newData = applyFiltersToData(data, newAppliedFilters, columns);
+      const newData = applyFiltersToData(data, newAppliedFilters);
       onApplyFilters(newData);
     }
   }, [selectedFilter, filterValue, appliedFilters, data, onApplyFilters, columns]);
@@ -26,7 +26,7 @@ const useFilter = (data, columns, onApplyFilters, initialFilter) => {
       );
       setAppliedFilters(newAppliedFilters);
 
-      const newData = applyFiltersToData(data, newAppliedFilters, columns);
+      const newData = applyFiltersToData(data, newAppliedFilters);
       onApplyFilters(newData);
     },
     [appliedFilters, data, onApplyFilters, columns]

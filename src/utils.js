@@ -35,9 +35,9 @@ const applyFilter = (item, filter) => {
   }
 };
 
-export const applyFiltersToData = (data, appliedFilters, columns) => {
+export const applyFiltersToData = (data, appliedFilters) => {
   return appliedFilters.reduce(
-    (filteredData, filter) => filteredData.filter((item) => applyFilter(item, filter, columns)),
+    (filteredData, filter) => filteredData.filter((item) => applyFilter(item, filter)),
     data
   );
 };
