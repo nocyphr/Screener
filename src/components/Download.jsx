@@ -1,7 +1,7 @@
 import React from 'react';
 import useDownload from '../hooks/useDownload';
 
-const Download = ({ data, filteredSortedData, columns, filename, children }) => {
+const Download = ({ filteredSortedData, columns, filename, children }) => {
   const { handleClick } = useDownload(filteredSortedData, columns, filename);
 
   return (
