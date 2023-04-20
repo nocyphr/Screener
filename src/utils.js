@@ -1,20 +1,29 @@
-const applyFilter = (item, filter, columns) => {
-  const comparisonOperator = filter.value[0];
-  const filterThreshold = filter.value.slice(1).trim();
+const isGreaterThanThreshold = (item, filterType, filterThreshold) =>
+  parseFloat(item[filterType]) > parseFloat(filterThreshold);
 
-  switch (comparisonOperator) {
+const isLessThanThreshold = (item, filterType, filterThreshold) =>
+  parseFloat(item[filterType]) < parseFloat(filterThreshold);
+
+const notIncludesFilter = (item, filterType, filterValue) =>
+  !item[filterType].toString().toLowerCase().includes(filterValue.toLowerCase());
+
+const includesFilter = (item, filterType, filterValue, columns) =>
+  columns.includes(filterType) &&
+  item[filterType].toString().toLowerCase().includes(filterValue.toLowerCase());
+
+const applyFilter = (item, filter, columns) => {
+  const filterOperator = filter.value[0];
+  const filterValue = filter.value.slice(1).trim();
+
+  switch (filterOperator) {
     case '>':
-      return parseFloat(item[filter.type]) > parseFloat(filterThreshold);
+      return isGreaterThanThreshold(item, filter.type, filterValue);
     case '<':
-      return parseFloat(item[filter.type]) < parseFloat(filterThreshold);
+      return isLessThanThreshold(item, filter.type, filterValue);
     case '!':
-      return !item[filter.type].toString().toLowerCase().includes(filterThreshold.toLowerCase());
+      return notIncludesFilter(item, filter.type, filterValue);
     default:
-      if (columns.includes(filter.type)) {
-        return item[filter.type].toString().toLowerCase().includes(filter.value.toLowerCase());
-      } else {
-        return true;
-      }
+      return includesFilter(item, filter.type, filter.value, columns);
   }
 };
 
@@ -23,6 +32,27 @@ export const applyFiltersToData = (data, appliedFilters, columns) => {
     (filteredData, filter) => filteredData.filter((item) => applyFilter(item, filter, columns)),
     data
   );
+};
+
+const formatDate = (date) => {
+  return `${date.getFullYear()}-${(date.getMonth() + 1)
+    .toString()
+    .padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+};
+
+const formatTime = (date) => {
+  return `${date
+    .getHours()
+    .toString()
+    .padStart(2, '0')}-${date.getMinutes().toString().padStart(2, '0')}-${date
+    .getSeconds()
+    .toString()
+    .padStart(2, '0')}`;
+};
+
+export const getDateTimeStamp = () => {
+  const currentdate = new Date();
+  return `${formatDate(currentdate)}_${formatTime(currentdate)}`;
 };
 
 export const convertToCSV = (data, columns) => {
@@ -49,11 +79,4 @@ export const downloadCSV = (csv, filename, document) => {
   const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
   const url = URL.createObjectURL(blob);
   createDownloadLink(url, filename, document);
-};
-
-
-export const getDateTimeStamp = () => {
-  const currentdate = new Date();
-  const datetime = `${currentdate.getFullYear()}-${(currentdate.getMonth()+1).toString().padStart(2, '0')}-${currentdate.getDate().toString().padStart(2, '0')}_${currentdate.getHours().toString().padStart(2, '0')}-${currentdate.getMinutes().toString().padStart(2, '0')}-${currentdate.getSeconds().toString().padStart(2, '0')}`;
-  return datetime;
 };
