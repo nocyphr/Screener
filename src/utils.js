@@ -1,41 +1,40 @@
 // Filter utility functions
-export const isGreaterThanThreshold = (item, filterType, filterThreshold) => {
-  return parseFloat(item[filterType]) > parseFloat(filterThreshold);
+const isValueWithinThreshold = (item, filterType, filterThreshold, operator) => {
+  const value = parseFloat(item[filterType]);
+  const threshold = parseFloat(filterThreshold);
+
+  return operator === '>' ? value > threshold : value < threshold;
 };
 
-export const isLessThanThreshold = (item, filterType, filterThreshold) => {
-  return parseFloat(item[filterType]) < parseFloat(filterThreshold);
+export const isValueGreaterThanThreshold = (item, filterType, filterThreshold) => {
+  return isValueWithinThreshold(item, filterType, filterThreshold, '>');
 };
 
-export const notIncludesFilter = (item, filterType, filterValue) => {
-  return !item[filterType].toString().toLowerCase().includes(filterValue.toLowerCase());
+export const isValueLessThanThreshold = (item, filterType, filterThreshold) => {
+  return isValueWithinThreshold(item, filterType, filterThreshold, '<');
 };
 
-export const includesFilter = (item, filterType, filterValue, columns) => {
-  return (
-    columns.includes(filterType) &&
-    item[filterType].toString().toLowerCase().includes(filterValue.toLowerCase())
-  );
+const filterIncludesValue = (item, filterType, filterValue, shouldInclude) => {
+  const includesValue = item[filterType].toString().toLowerCase().includes(filterValue.toLowerCase());
+  return shouldInclude ? includesValue : !includesValue;
 };
 
-// Applies a single filter to an item
 const applyFilter = (item, filter, columns) => {
-  const filterOperator = filter.value[0];
-  const filterValue = filter.value.slice(1).trim();
+  const operator = filter.value[0];
+  const value = filter.value.slice(1).trim();
 
-  switch (filterOperator) {
+  switch (operator) {
     case '>':
-      return isGreaterThanThreshold(item, filter.type, filterValue);
+      return isValueGreaterThanThreshold(item, filter.type, value);
     case '<':
-      return isLessThanThreshold(item, filter.type, filterValue);
+      return isValueLessThanThreshold(item, filter.type, value);
     case '!':
-      return notIncludesFilter(item, filter.type, filterValue);
+      return filterIncludesValue(item, filter.type, value, false);
     default:
-      return includesFilter(item, filter.type, filter.value, columns);
+      return filterIncludesValue(item, filter.type, filter.value, true);
   }
 };
 
-// Applies multiple filters to the dataset
 export const applyFiltersToData = (data, appliedFilters, columns) => {
   return appliedFilters.reduce(
     (filteredData, filter) => filteredData.filter((item) => applyFilter(item, filter, columns)),
@@ -45,22 +44,13 @@ export const applyFiltersToData = (data, appliedFilters, columns) => {
 
 // Date and Time formatting utility functions
 const formatDate = (date) => {
-  return `${date.getFullYear()}-${(date.getMonth() + 1)
-    .toString()
-    .padStart(2, '0')}-${date.getDate().toString().padStart(2, '0')}`;
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
 };
 
 const formatTime = (date) => {
-  return `${date
-    .getHours()
-    .toString()
-    .padStart(2, '0')}${date.getMinutes().toString().padStart(2, '0')}${date
-    .getSeconds()
-    .toString()
-    .padStart(2, '0')}`;
+  return `${String(date.getHours()).padStart(2, '0')}${String(date.getMinutes()).padStart(2, '0')}${String(date.getSeconds()).padStart(2, '0')}`;
 };
 
-// Returns a formatted timestamp
 export const getDateTimeStamp = () => {
   const currentdate = new Date();
   return `${formatDate(currentdate)}_${formatTime(currentdate)}`;
@@ -87,7 +77,6 @@ const createDownloadLink = (url, filename, document) => {
   }, 0);
 };
 
-// Downloads CSV file
 export const downloadCSV = (csv, filename, document) => {
   const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
   const url = URL.createObjectURL(blob);
