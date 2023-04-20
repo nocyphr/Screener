@@ -1,5 +1,5 @@
 // Filter utility functions
-const isValueWithinThreshold = (item, filterType, filterThreshold, operator) => {
+export const isValueWithinThreshold = (item, filterType, filterThreshold, operator) => {
   const value = parseFloat(item[filterType]);
   const threshold = parseFloat(filterThreshold);
 
@@ -14,12 +14,12 @@ export const isValueLessThanThreshold = (item, filterType, filterThreshold) => {
   return isValueWithinThreshold(item, filterType, filterThreshold, '<');
 };
 
-const filterIncludesValue = (item, filterType, filterValue, shouldInclude) => {
+export const filterIncludesValue = (item, filterType, filterValue, shouldInclude) => {
   const includesValue = item[filterType].toString().toLowerCase().includes(filterValue.toLowerCase());
   return shouldInclude ? includesValue : !includesValue;
 };
 
-const applyFilter = (item, filter, columns) => {
+const applyFilter = (item, filter) => {
   const operator = filter.value[0];
   const value = filter.value.slice(1).trim();
 
