@@ -11,7 +11,7 @@ const TableView = ({ data, columns, onSortedDataChange }) => {
     handleHeaderClick,
     handlePageChange,
     handleItemsPerPageChange,
-  } = useTableView(data, columns);
+  } = useTableView(data);
 
   React.useEffect(() => {
     if (onSortedDataChange) {
