@@ -1,30 +1,36 @@
 import { useState, useMemo } from 'react';
 
+const sortData = (data, config) => {
+  const sorted = [...data];
+
+  if (config.key && config.direction !== 'none') {
+    sorted.sort((a, b) => {
+      if (a[config.key] < b[config.key]) {
+        return config.direction === 'ascending' ? -1 : 1;
+      }
+      if (a[config.key] > b[config.key]) {
+        return config.direction === 'ascending' ? 1 : -1;
+      }
+      return 0;
+    });
+  }
+
+  return sorted;
+};
+
 const useSort = (data) => {
   const [sortConfig, setSortConfig] = useState({ key: null, direction: 'none' });
 
-  const handleHeaderClick = (column) => {
+  const handleHeaderClick = (columnKey) => {
     let direction = 'ascending';
-    if (sortConfig.key === column && sortConfig.direction === 'ascending') {
+    if (sortConfig.key === columnKey && sortConfig.direction === 'ascending') {
       direction = 'descending';
     }
-    setSortConfig({ key: column, direction });
+    setSortConfig({ key: columnKey, direction });
   };
 
   const sortedData = useMemo(() => {
-    const sorted = [...data];
-    if (sortConfig.key && sortConfig.direction !== 'none') {
-      sorted.sort((a, b) => {
-        if (a[sortConfig.key] < b[sortConfig.key]) {
-          return sortConfig.direction === 'ascending' ? -1 : 1;
-        }
-        if (a[sortConfig.key] > b[sortConfig.key]) {
-          return sortConfig.direction === 'ascending' ? 1 : -1;
-        }
-        return 0;
-      });
-    }
-    return sorted;
+    return sortData(data, sortConfig);
   }, [data, sortConfig]);
 
   return { sortedData, sortConfig, handleHeaderClick };
