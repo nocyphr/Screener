@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 
 const sortData = (data, config) => {
   const sorted = [...data];
@@ -18,8 +18,17 @@ const sortData = (data, config) => {
   return sorted;
 };
 
+const initialSortConfig = () => {
+  const storedSortConfig = localStorage.getItem("sortConfig");
+  return storedSortConfig ? JSON.parse(storedSortConfig) : { key: null, direction: 'none' };
+};
+
 const useSort = (data) => {
-  const [sortConfig, setSortConfig] = useState({ key: null, direction: 'none' });
+  const [sortConfig, setSortConfig] = useState(initialSortConfig);
+
+  useEffect(() => {
+    localStorage.setItem("sortConfig", JSON.stringify(sortConfig));
+  }, [sortConfig]);
 
   const handleHeaderClick = (columnKey) => {
     let direction = 'ascending';
