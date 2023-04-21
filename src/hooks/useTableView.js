@@ -10,7 +10,7 @@ const useTableView = (data) => {
     paginatedData,
     handlePageChange,
     handleItemsPerPageChange,
-  } = usePagination(sortedData);
+  } = usePagination(sortedData, 10, [sortedData]);
 
   return {
     sortConfig,

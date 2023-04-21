@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react';
 
 const usePagination = (data, itemsPerPageInitialValue = 10) => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [itemsPerPage, setItemsPerPage] = useState(itemsPerPageInitialValue);
+  const [itemsPerPage, setItemsPerPage] = useState(parseInt(itemsPerPageInitialValue, 10));
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
