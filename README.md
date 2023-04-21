@@ -84,13 +84,15 @@ This executes the gherkin step definitions and unit-tests
   - [x] getting the current table in csv format is possible (link? Download?)
 - [x] styling? Frameworks? (bootstrap vs. tailwind)
 - [x] refine Scenario: Filter stock data Outline with examples column | filter -> test text column, numerical column, operators
-- [ ] "remember" (cookie) applied filters and sorting after page reload
+- [x] "remember" (cookie) applied sorting after page reload
+- [ ] "remember" (cookie) applied filters after page reload 
 - [ ] Add test for sequential filters
 
 ### Refactoring
 - [x] use hooks directory and move code there to simplify components code
 - [x] eliminate single helpers file (FilterLogic.js)
 - [ ] move logic from App.jsx to useFilter.js
+- [ ] Create README 2.0
 
 ### Issues
 - [ ] Go to page 2, set symbol filter to "A" -> you are on an empty page 2 because there are only enough items for one page
