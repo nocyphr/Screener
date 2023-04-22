@@ -43,3 +43,40 @@ Scenario Outline: Filter stock data with multiple filters
   | Column1 | Filter1 | Column2    | Filter2    |
   | Symbol  | A       | Price      | >160       |
   | Symbol  | !E      | MarketCap  | <450000000 |
+  
+###################################################################################
+###################################################################################
+###################################################################################
+
+Scenario: Clear all applied filters
+    Given I see the filter section
+    And I apply a A criteria to the Symbol
+    And I apply a >160 criteria to the Price
+    And I see the applied filters in the AppliedFilters component
+    When I click the Clear All Filters button
+    Then no filters should be applied
+    And the AppliedFilters component should be empty
+
+Scenario: Remove a single filter
+    Given I see the filter section
+    And I apply a A criteria to the Symbol
+    And I apply a >160 criteria to the Price
+    And I see the applied filters in the AppliedFilters component
+    When I remove the A criteria from the Symbol
+    Then the Symbol filter should be removed
+    And the Price filter should remain applied
+
+
+Scenario: Applied filter persists after page reload
+    Given I see the filter section
+    And I apply a A criteria to the Symbol
+    And I see the applied filters in the AppliedFilters component
+    When I reload the page
+    Then the Symbol filter should remain applied
+    And I should see the applied filters in the AppliedFilters component
+
+Scenario: Column sorting persists after page reload
+    Given I see the stock data table
+    And I sort the Price column
+    When I reload the page
+    Then the Price column should remain sorted
