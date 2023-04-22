@@ -18,16 +18,33 @@ const App = () => {
   useEffect(() => {
     setFilteredData(data);
     setSortedData(data);
+  
+    const storedAppliedFilters = localStorage.getItem("appliedFilters");
+    if (storedAppliedFilters) {
+      const parsedAppliedFilters = JSON.parse(storedAppliedFilters);
+      setAppliedFilters(parsedAppliedFilters);
+      const newData = applyFiltersToData(data, parsedAppliedFilters);
+      setFilteredData(newData);
+      setSortedData([...newData]);
+    }
   }, [data]);
+  
 
-  const handleApplyFilters = useCallback((updateAppliedFilters) => {
-    const newAppliedFilters = updateAppliedFilters(appliedFilters);
-    setAppliedFilters(newAppliedFilters);
-
-    const newData = applyFiltersToData(data, newAppliedFilters);
-    setFilteredData(newData);
-    setSortedData([...newData]);
-  }, [data, appliedFilters]);
+  const handleApplyFilters = useCallback(
+    (updateAppliedFilters) => {
+      const newAppliedFilters = updateAppliedFilters(appliedFilters);
+      setAppliedFilters(newAppliedFilters);
+  
+      // Store applied filters in localStorage
+      localStorage.setItem("appliedFilters", JSON.stringify(newAppliedFilters));
+  
+      const newData = applyFiltersToData(data, newAppliedFilters);
+      setFilteredData(newData);
+      setSortedData([...newData]);
+    },
+    [data, appliedFilters]
+  );
+  
 
   return (
     <Container>
@@ -44,14 +61,28 @@ const App = () => {
             appliedFilters={appliedFilters}
             removeFilter={(index) => {
               handleApplyFilters((currentFilters) => {
-                return currentFilters.filter((_, filterIndex) => filterIndex !== index);
+                const updatedFilters = currentFilters.filter(
+                  (_, filterIndex) => filterIndex !== index
+                );
+
+                // Update localStorage
+                localStorage.setItem("appliedFilters", JSON.stringify(updatedFilters));
+
+                return updatedFilters;
               });
             }}
             clearFilters={() => {
               setAppliedFilters([]);
-              handleApplyFilters(data, []);
+              const newData = applyFiltersToData(data, []);
+              setFilteredData(newData);
+              setSortedData([...newData]);
+            
+              // Clear applied filters from localStorage
+              localStorage.removeItem("appliedFilters");
             }}
+            
           />
+
 
           <TableView
             data={filteredData}
