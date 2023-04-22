@@ -95,5 +95,6 @@ This executes the gherkin step definitions and unit-tests
 - [ ] Create README 2.0
 
 ### Issues
+- [x] Download button moves as filters are added instead of staying on the level of applyfilters button
 - [ ] Go to page 2, set symbol filter to "A" -> you are on an empty page 2 because there are only enough items for one page
 - [x] Sorting is lost in downloaded csv, only filters stay applied

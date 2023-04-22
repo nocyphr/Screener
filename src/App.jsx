@@ -29,7 +29,7 @@ const App = () => {
         <p>Loading...</p>
       ) : (
         <>
-          <div className="flex justify-between items-center mb-4">
+          <div className="flex justify-between items-start mb-4">
             <Filter data={data} columns={columns} onApplyFilters={handleApplyFilters} />
             <Download
               data={data}
