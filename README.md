@@ -1,3 +1,4 @@
+- [Update:](#update)
 - [About](#about)
 - [Features](#features)
 - [Installation for development](#installation-for-development)
@@ -9,6 +10,11 @@
   - [Refactoring](#refactoring)
   - [Issues](#issues)
 
+## Update:
+The further along you get in a Project the more you realize where you f.cked up before. 
+The current code was my first try to build a react project completely from scratch. Although I have worked with it before(legacy code), building the structure from scratch in a good way while maintaining a structure that can be easily maintained is harder than refactoring and fixing code/structure that already exists :)
+The next step is a major refactoring, but I want to produce a useable product first - for this I need my backend, which will be python/fastAPI/mysql (thank god, js is a pain - who thought it was a good idea to slap it into a backend as well with node?) 
+The focus during the next few days/weeks will therefore primarily be on my backend. once that is working and data is scraped, prepared and served through the api into my frontend, I will continue the refactoring/restructuring steps needed for a clean react frontend
 
 ## About
 A simple stock screener for `magic formula` and `aquirer's multiple` stocks. 
@@ -86,12 +92,30 @@ This executes the gherkin step definitions and unit-tests
 - [x] refine Scenario: Filter stock data Outline with examples column | filter -> test text column, numerical column, operators
 - [x] "remember" (cookie) applied sorting after page reload
 - [x] "remember" (cookie) applied filters after page reload 
-- [ ] Add test for sequential filters
+- [x] Add test for sequential filters
+- [ ] Repackage dockers for tests/deploy versions(deploy should use npm build + traefik + nginx to serve)
+- [ ] Add tests for ability to 
+  - [ ] remove all filters at once
+  - [ ] remove 1/n filters
+  - [ ] remember sorting
+  - [ ] remember filters
+  - [ ] pages counter in pagination should be >1 if elements > 10
+  - [ ] current page should adjust if filters reduce total number of pages below current page position
 
 ### Refactoring
 - [x] use hooks directory and move code there to simplify components code
 - [x] eliminate single helpers file (FilterLogic.js)
 - [x] move logic from App.jsx to useFilter.js
+- [ ] clean up code (comments unused bits and bops)
+- [ ] restructure
+  - [ ] use a test.env for tests, .env for deployment
+  - [ ] extract pagination to app.jsx
+  - [ ] remove logic from any Component
+  - [ ] remove non hook logic from hooks
+  - [ ] relocate non hook logic to utils.js/ a utils folder
+  - [ ] refactor utils function for testability
+  - [ ] write unit tests for all utils functions
+  - [ ] App.jsx should only contain components, not logic
 - [ ] Create README 2.0
 
 ### Issues
