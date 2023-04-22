@@ -5,7 +5,7 @@ const AppliedFilters = ({ appliedFilters, removeFilter, clearFilters }) => {
     <div className="mt-4">
       <div className="flex flex-wrap">
         {appliedFilters.map((filter, index) => (
-          <div key={index} className="bg-gray-700 rounded p-2 m-1">
+          <div key={index} className="bg-gray-700 rounded p-2 m-1 applied-filters">
             <span className="text-gray-400 mr-1">{`${filter.type}: ${filter.value}`}</span>
             <button
               className="text-red-600"

@@ -33,3 +33,21 @@ Then('I should see the filter section component', async function () {
     const filterSection = await driver.findElement(By.css('#filter-section')); // Replace with the correct CSS selector for the filter section
     assert.ok(filterSection);
 });
+
+When('I should see the applied filters in the AppliedFilters component', async function () {
+    const driver = getDriver();
+    const appliedFiltersSelector = '.applied-filters';
+  
+    // Wait for the element to become visible
+    const waitForAppliedFilters = async () => {
+      const isAppliedFiltersVisible = await driver.executeScript(`return !!document.querySelector('${appliedFiltersSelector}');`);
+      return isAppliedFiltersVisible;
+    };
+    await driver.wait(waitForAppliedFilters, 5000);
+  
+    // Check if the filters are displayed
+    const appliedFilters = await driver.findElements(By.css(appliedFiltersSelector));
+    assert.ok(appliedFilters.length > 0, 'Applied filters not found in the AppliedFilters component');
+  });
+  
+  

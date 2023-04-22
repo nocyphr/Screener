@@ -30,3 +30,16 @@ Scenario: Download stock data as a CSV file
 Given I see the "Download as CSV" button
 When I click the "Download as CSV" button
 Then the dataset is downloaded in csv-format
+
+Scenario Outline: Filter stock data with multiple filters
+  Given I see the filter section
+  When I apply a <Filter1> criteria to the <Column1>
+  And I apply a <Filter2> criteria to the <Column2>
+  Then <Column1> should no longer contain entries where <Filter1> is false
+  And <Column2> should no longer contain entries where <Filter2> is false
+  And I should see the applied filters in the AppliedFilters component
+
+  Examples:
+  | Column1 | Filter1 | Column2    | Filter2    |
+  | Symbol  | A       | Price      | >160       |
+  | Symbol  | !E      | MarketCap  | <450000000 |
