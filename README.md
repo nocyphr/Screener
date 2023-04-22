@@ -99,3 +99,5 @@ This executes the gherkin step definitions and unit-tests
 - [ ] Go to page 2, set symbol filter to "A" -> you are on an empty page 2 because there are only enough items for one page
 - [x] Sorting is lost in downloaded csv, only filters stay applied
 
+
+find . -type f -exec sh -c 'echo -e "\n{}:" >> ../output.file; cat {} >> ../output.file' \;
