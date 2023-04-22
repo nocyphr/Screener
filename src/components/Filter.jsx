@@ -1,20 +1,15 @@
-// ./Filter.jsx
 import React from 'react';
 import useFilter from '../hooks/useFilter';
-import AppliedFilters from './AppliedFilters';
 
-const Filter = ({ data, columns, onApplyFilters, initialFilter }) => {
+const Filter = ({ data, columns, onApplyFilters, initialFilter, appliedFilters }) => {
   const {
     selectedFilter,
     filterValue,
-    appliedFilters,
     handleFilterChange,
     handleFilterValueChange,
     handleKeyPress,
     applyFilter,
-    removeFilter,
-    clearFilters,
-  } = useFilter(data, columns, onApplyFilters, initialFilter);
+  } = useFilter(data, columns, onApplyFilters, initialFilter, appliedFilters);
 
   return (
     <div className="my-4">
@@ -45,11 +40,6 @@ const Filter = ({ data, columns, onApplyFilters, initialFilter }) => {
           Apply Filter
         </button>
       </div>
-      <AppliedFilters
-        appliedFilters={appliedFilters}
-        removeFilter={removeFilter}
-        clearFilters={clearFilters}
-      />
     </div>
   );
 };

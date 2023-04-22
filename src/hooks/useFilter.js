@@ -1,41 +1,33 @@
-import { useState, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { applyFiltersToData } from '../utils';
 
-const useFilter = (data, columns, onApplyFilters, initialFilter) => {
+const useFilter = (data, columns, onApplyFilters, initialFilter, appliedFilters) => {
   const [selectedFilter, setSelectedFilter] = useState(initialFilter || columns[0]);
   const [filterValue, setFilterValue] = useState('');
-  const [appliedFilters, setAppliedFilters] = useState([]);
 
   const handleApplyFilter = useCallback(() => {
     if (filterValue.trim() !== '') {
       const camelCaseType = selectedFilter.charAt(0).toUpperCase() + selectedFilter.slice(1);
       const newFilter = { type: camelCaseType, value: filterValue };
-      const newAppliedFilters = [...appliedFilters, newFilter];
-      setAppliedFilters(newAppliedFilters);
+
+      onApplyFilters(prevAppliedFilters => {
+        // Check if there is an existing filter with the same type and value
+        const existingFilterIndex = prevAppliedFilters.findIndex(
+          (filter) => filter.type === newFilter.type && filter.value === newFilter.value
+        );
+
+        // If the filter exists, don't add it again
+        if (existingFilterIndex !== -1) {
+          return prevAppliedFilters;
+        }
+
+        // Add the new filter
+        return [...prevAppliedFilters, newFilter];
+      });
+
       setFilterValue('');
-
-      const newData = applyFiltersToData(data, newAppliedFilters);
-      onApplyFilters(newData);
     }
-  }, [selectedFilter, filterValue, appliedFilters, data, onApplyFilters, columns]);
-
-  const handleRemoveFilter = useCallback(
-    (index) => {
-      const newAppliedFilters = appliedFilters.filter(
-        (_, filterIndex) => filterIndex !== index
-      );
-      setAppliedFilters(newAppliedFilters);
-
-      const newData = applyFiltersToData(data, newAppliedFilters);
-      onApplyFilters(newData);
-    },
-    [appliedFilters, data, onApplyFilters, columns]
-  );
-
-  const handleClearFilters = useCallback(() => {
-    setAppliedFilters([]);
-    onApplyFilters(data);
-  }, [data, onApplyFilters]);
+  }, [selectedFilter, filterValue, appliedFilters]);
 
   const handleFilterChange = (e) => {
     setSelectedFilter(e.target.value);
@@ -54,13 +46,10 @@ const useFilter = (data, columns, onApplyFilters, initialFilter) => {
   return {
     selectedFilter,
     filterValue,
-    appliedFilters,
     handleFilterChange,
     handleFilterValueChange,
     handleKeyPress,
     applyFilter: handleApplyFilter,
-    removeFilter: handleRemoveFilter,
-    clearFilters: handleClearFilters,
   };
 };
 
